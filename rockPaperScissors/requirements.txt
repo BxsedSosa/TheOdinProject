@@ -1,0 +1,10 @@
+1.1v
+[x] Start creating logic for the game
+  # Rock beats scissors
+  # Paper beats rock
+  # scissors beats paper
+[] Record wins and losses for cpu and player to update 
+[] Reset score button
+
+1.0v
+[x] build out html for rock paper scissor decisions
