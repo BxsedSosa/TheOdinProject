@@ -1,47 +1,67 @@
 let rockBtn = document.getElementById('btn-rock');
 let paperBtn = document.getElementById('btn-paper');
 let scissorBtn = document.getElementById('btn-scissors');
+let recordText = document.getElementById('game-record');
+let resetText = document.getElementById('btn-reset');
 rockBtn.addEventListener('click', gameLogic);
 paperBtn.addEventListener('click', gameLogic);
 scissorBtn.addEventListener('click', gameLogic);
+resetText.addEventListener('click', resetScore);
+
+let score = {
+  wins: 0,
+  loses: 0,
+  ties: 0,
+}
 
 function gameLogic(event) {
   let cpu = cpuRandomizer();
-  let player = event.innerText
-  console.log(player)
+  let player = event.target.innerText
+  let result = ''
 
-  if (event === 'rock') {
+  
+  if (player === 'Rock') {
 
     if (cpu === 'scissors') {
-      return 'win';
+      result = 'win';
     } else if (cpu === 'paper') {
-      return 'lose';
+      result = 'lose';
     } else {
-      return 'tie';
+      result = 'tie';
     }
   }
 
-  if (event === 'paper') {
+  if (player === 'Paper') {
 
     if (cpu === 'scissors') {
-      return 'lose';
+      result = 'lose';
     } else if (cpu === 'paper') {
-      return 'tie';
+      result = 'tie';
     } else {
-      return 'win';
+      result = 'win';
     }
   }
 
-  if (event === 'scissor') {
+  if (player === 'Scissors') {
     
     if (cpu === 'scissors') {
-      return 'tie';
+      result = 'tie';
     } else if (cpu === 'paper') {
-      return 'win';
+      result = 'win';
     } else {
-      return 'lose';
+      result = 'lose';
     }
   }
+
+    result === 'win' ? score.wins += 1 
+    : result === 'lose' ? score.loses += 1
+    : score.ties += 1
+
+  winLoss()
+}
+
+function winLoss() {
+  recordText.innerHTML = `Wins: ${score.wins} | Losses: ${score.loses} | Ties: ${score.ties}`;
 }
 
 function cpuRandomizer() {
@@ -51,4 +71,11 @@ function cpuRandomizer() {
   (cpuRandom <= 0.66) ? 'paper' : 'scissors';
 
   return cpuPick;
+}
+
+function resetScore() {
+  score.wins = score.loses = score.ties = 0
+  
+  recordText.innerHTML = `Wins: ${score.wins} | Losses: ${score.loses} | Ties: ${score.ties}`;
+
 }
