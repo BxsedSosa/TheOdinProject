@@ -1,42 +1,54 @@
-function gameLogic(playerChoice, cpuChoice){
+let rockBtn = document.getElementById('btn-rock');
+let paperBtn = document.getElementById('btn-paper');
+let scissorBtn = document.getElementById('btn-scissors');
+rockBtn.addEventListener('click', gameLogic);
+paperBtn.addEventListener('click', gameLogic);
+scissorBtn.addEventListener('click', gameLogic);
 
-  var playerScore = 0
-  var cpuScore = 0
+function gameLogic(event) {
+  let cpu = cpuRandomizer();
+  let player = event.innerText
+  console.log(player)
 
-  if (playerChoice === 'rock') {
+  if (event === 'rock') {
 
-    if (cpuChoice === 'scissors') {
-      return playerScore++;
-    } else if (cpuChoice === 'paper') {
-      return cpuScore++;
-    } else if (cpuChoice === 'rock'){
-      return "It's a Tie!";
+    if (cpu === 'scissors') {
+      return 'win';
+    } else if (cpu === 'paper') {
+      return 'lose';
+    } else {
+      return 'tie';
     }
-  } else if (playerChoice === 'paper') {
+  }
 
-      if (cpuChoice === 'scissors') {
-        return cpuScore++;
-      } else if (cpuChoice === 'paper') {
-        return "It's a Tie!";
-      } else if (cpuChoice === 'rock'){
-        return playerScore++;
-      }
-  } else if (playerChoice === 'scissors') {
+  if (event === 'paper') {
 
-      if (cpuChoice === 'scissors') {
-        return "It's a Tie!";
-      } else if (cpuChoice === 'paper') {
-        return playerScore++;
-      } else if (cpuChoice === 'rock'){
-        return cpuScore++;
-      }
-  updateScore(playerScore, cpuScore)
+    if (cpu === 'scissors') {
+      return 'lose';
+    } else if (cpu === 'paper') {
+      return 'tie';
+    } else {
+      return 'win';
+    }
+  }
+
+  if (event === 'scissor') {
+    
+    if (cpu === 'scissors') {
+      return 'tie';
+    } else if (cpu === 'paper') {
+      return 'win';
+    } else {
+      return 'lose';
+    }
   }
 }
 
-let result = gameLogic('scissors', 'rock');
+function cpuRandomizer() {
+  let cpuRandom = Math.random().toFixed(2);
 
-function updateScore(playerScore, cpuScore) {
+  const cpuPick = (cpuRandom <= 0.33) ? 'rock':
+  (cpuRandom <= 0.66) ? 'paper' : 'scissors';
 
-  document.querySelector('gameResult').innerHTML = `Player Wins: ${playerScore} | Cpu Wins: ${cpuScore}`
+  return cpuPick;
 }
